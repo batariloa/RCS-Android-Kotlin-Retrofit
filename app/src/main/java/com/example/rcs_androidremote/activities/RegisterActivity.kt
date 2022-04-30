@@ -28,7 +28,7 @@ class RegisterActivity : AppCompatActivity() {
         val registerButton = findViewById<Button>(R.id.btn_submit_register)
 
         registerButton.setOnClickListener{
-            Log.d("TAG", "message Yoooo")
+
             val emailValue = emailField.text.toString().trim()
             val passwordValue = passwordField.text.toString().trim()
             val passwordAgainValue = passwordAgainField.text.toString().trim()
@@ -60,16 +60,14 @@ class RegisterActivity : AppCompatActivity() {
                         response: Response<RegisterResponse>
                     ) {
                         println(
-                            "Je uspelo. ${response.body()} ${
-                                response.errorBody()?.string()
-                            } ${response.message()}"
+                            "Succeeded ${response.body()} "
                         )
                         if (response.isSuccessful)
                             println(response.body().toString())
                     }
 
                     override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                        println("Nije uspelo.")
+                        println("Authentication failed")
                         Log.d("RetrofitTest", t.toString())
                     }
 

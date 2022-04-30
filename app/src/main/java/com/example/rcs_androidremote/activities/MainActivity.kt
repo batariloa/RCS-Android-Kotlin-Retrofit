@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
 
        clickMe.setOnClickListener {
-           Log.d("TAG", "message Yoooo")
+
            val emailValue = email.text.toString().trim()
            val passwordValue = password.text.toString().trim()
 
@@ -63,16 +63,14 @@ class MainActivity : AppCompatActivity() {
                        response: Response<LoginResponse>
                    ) {
                        println(
-                           "Je uspelo. ${response.body()} ${
-                               response.errorBody()?.string()
-                           } ${response.message().toString()}"
+                           "Success: ${response.body()}"
                        )
                        if (response.isSuccessful)
                            println(response.body().toString())
                    }
 
                    override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                       println("Nije uspelo.")
+                       println("Failure.")
                        Log.d("RetrofitTest", t.toString())
                    }
 

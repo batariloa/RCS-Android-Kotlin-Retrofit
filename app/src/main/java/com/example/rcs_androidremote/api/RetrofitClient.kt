@@ -15,7 +15,7 @@ class RetrofitClient {
         private const val BASE_URL = "http://10.0.2.2:8079/"
 
         fun getRetroInstance(): Retrofit {
-            var logging = HttpLoggingInterceptor()
+            val logging = HttpLoggingInterceptor()
             logging.level = (HttpLoggingInterceptor.Level.BODY)
             val client = OkHttpClient.Builder()
                 .connectTimeout(5, TimeUnit.SECONDS)

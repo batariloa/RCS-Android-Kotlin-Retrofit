@@ -2,12 +2,12 @@ package com.example.rcs_androidremote.api
 
 
 
-import com.example.rcs_androidremote.models.DefaultResponse
 import com.example.rcs_androidremote.models.LoginResponse
 import com.example.rcs_androidremote.models.RegisterResponse
 import com.example.rcs_androidremote.models.User
 import retrofit2.Call
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.POST
 
 
 interface ApiService {
