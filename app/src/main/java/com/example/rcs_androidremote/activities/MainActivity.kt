@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.rcs_androidremote.R
 import com.example.rcs_androidremote.api.ApiService
 import com.example.rcs_androidremote.api.RetrofitClient
