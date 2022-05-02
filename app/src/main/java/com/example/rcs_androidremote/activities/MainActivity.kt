@@ -1,12 +1,12 @@
 package com.example.rcs_androidremote.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.example.rcs_androidremote.R
 import com.example.rcs_androidremote.api.ApiService
 import com.example.rcs_androidremote.api.RetrofitClient
@@ -20,7 +20,6 @@ import retrofit2.Response
 
 
 class MainActivity : AppCompatActivity() {
-     var loggedIn = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -68,7 +67,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun login(email:String, password:String){
+    private fun login(email:String, password:String){
 
         // launching a new coroutine
         val retroInstance = RetrofitClient.getRetroInstance().create(ApiService::class.java)

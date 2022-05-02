@@ -74,7 +74,6 @@ class RetrofitClient {
 
          fun getStatus() {
              val retroInstance = getRetroInstance().create(ApiService::class.java)
-             println("Jedno ${currentUserEmail} i drugo $currentToken")
              val call = retroInstance.getStatus(currentToken,currentUserEmail)
 
                  call.enqueue(object : Callback<MemoryStatus> {
@@ -95,7 +94,7 @@ class RetrofitClient {
                                          response.body()?.diskSpaceUsable ?: 0
 
                                      )
-                             println(" Promenjen objekat je $currentStatus" )
+                             println("Received: $currentStatus" )
                          }
 
                      }

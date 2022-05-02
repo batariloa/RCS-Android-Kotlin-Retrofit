@@ -53,14 +53,12 @@ class RemoteActivity : AppCompatActivity() {
 
     private fun callShutdown(){
         val retroInstance = RetrofitClient.getRetroInstance().create(ApiService::class.java)
-        println("Jedno ${RetrofitClient.currentUserEmail} i drugo ${RetrofitClient.currentToken}")
         val call = retroInstance.sendShutdownSignal(RetrofitClient.currentToken,RetrofitClient.currentUserEmail)
         RetrofitClient.makeCall(call)
     }
 
     private fun callMonkey(){
         val retroInstance = RetrofitClient.getRetroInstance().create(ApiService::class.java)
-        println("Jedno ${RetrofitClient.currentUserEmail} i drugo ${RetrofitClient.currentToken}")
         val call = retroInstance.addMonkey(RetrofitClient.currentToken,RetrofitClient.currentUserEmail)
         RetrofitClient.makeCall(call)
     }
@@ -68,14 +66,12 @@ class RemoteActivity : AppCompatActivity() {
     private fun callTorrent(){
         val torrent = findViewById<EditText>(R.id.et_torrent).text.toString()
         val retroInstance = RetrofitClient.getRetroInstance().create(ApiService::class.java)
-        println("Jedno ${RetrofitClient.currentUserEmail} i drugo ${RetrofitClient.currentToken}")
         val call = retroInstance.addTorrent(RetrofitClient.currentToken,  RetrofitClient.currentUserEmail, torrent)
         RetrofitClient.makeCall(call)
     }
     private fun callTerminal(){
         val command = findViewById<EditText>(R.id.et_terminal).text.toString()
         val retroInstance = RetrofitClient.getRetroInstance().create(ApiService::class.java)
-        println("Jedno ${RetrofitClient.currentUserEmail} i drugo ${RetrofitClient.currentToken}")
         val call = retroInstance.sendCommand(RetrofitClient.currentToken,  RetrofitClient.currentUserEmail, command)
         RetrofitClient.makeCall(call)
     }
@@ -83,16 +79,13 @@ class RemoteActivity : AppCompatActivity() {
     private fun updateStatus(){
         val diskSpaceTotal = findViewById<TextView>(R.id.disk_all)
 
-        var viewModelJob = Job()
-        val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-        uiScope.launch {
+        GlobalScope.launch {
 
                 RetrofitClient.getStatus()
-                for (i in 1..10) {
+                while(true) {
 
-                    GlobalScope.launch(Dispatchers.Main) {
+                    withContext(Dispatchers.Main) {
                         diskSpaceTotal.text = RetrofitClient.currentStatus.diskSpaceTotal.toString()
-                        println("Trenutan status je " + RetrofitClient.currentStatus)
                     }
                     delay(1000)
                 }

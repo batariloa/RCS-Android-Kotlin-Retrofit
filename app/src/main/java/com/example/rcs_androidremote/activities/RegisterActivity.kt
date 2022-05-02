@@ -2,7 +2,6 @@ package com.example.rcs_androidremote.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -10,13 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.rcs_androidremote.R
 import com.example.rcs_androidremote.api.ApiService
 import com.example.rcs_androidremote.api.RetrofitClient
-import com.example.rcs_androidremote.models.GenericResponse
 import com.example.rcs_androidremote.models.User
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
