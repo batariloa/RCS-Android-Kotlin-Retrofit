@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import com.example.rcs_androidremote.R
 import com.example.rcs_androidremote.api.ApiService
 import com.example.rcs_androidremote.api.RetrofitClient
@@ -19,15 +20,16 @@ import retrofit2.Response
 
 
 class MainActivity : AppCompatActivity() {
+     var loggedIn = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
 
-        val email = findViewById<EditText>(R.id.et_register_email)
-        val password = findViewById<EditText>(R.id.et_register_password)
-        val clickMe = findViewById<Button>(R.id.btn_login)
-        val clickRegister = findViewById<Button>(R.id.btnRegister)
+        val email = findViewById<EditText>(R.id.et_username)
+        val password = findViewById<EditText>(R.id.et_password)
+        val clickMe = findViewById<Button>(R.id.button_signin)
+        val clickRegister = findViewById<TextView>(R.id.register_page_btn)
 
         clickRegister.setOnClickListener{
             val intent = Intent(this, RegisterActivity::class.java)
@@ -52,34 +54,59 @@ class MainActivity : AppCompatActivity() {
            }
 
            println("Email je $emailValue a pass je $passwordValue")
-           val retroInstance = RetrofitClient.getRetroInstance().create(ApiService::class.java)
-           val call = retroInstance.userLogin(User(emailValue, passwordValue))
 
-           // launching a new coroutine
-           GlobalScope.launch {
-               call.enqueue(object : Callback<LoginResponse> {
-                   override fun onResponse(
-                       call: Call<LoginResponse>,
-                       response: Response<LoginResponse>
-                   ) {
-                       println(
-                           "Success: ${response.body()}"
-                       )
-                       if (response.isSuccessful)
-                           println(response.body().toString())
-                   }
+           login(emailValue,passwordValue)
 
-                   override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                       println("Failure.")
-                       Log.d("RetrofitTest", t.toString())
-                   }
 
-               })
 
-           }
        }
 
 
 
+
+
     }
+
+
+    fun login(email:String, password:String){
+
+        // launching a new coroutine
+        val retroInstance = RetrofitClient.getRetroInstance().create(ApiService::class.java)
+        val call = retroInstance.userLogin(User(email, password))
+        GlobalScope.launch {
+            call.enqueue(object : Callback<LoginResponse> {
+                override fun onResponse(
+                    call: Call<LoginResponse>,
+                    response: Response<LoginResponse>
+                ) {
+                    println(
+                        "Success: ${response.body()}"
+                    )
+                    if (response.isSuccessful) {
+                        println("Successful"+ response.body().toString())
+                        saveCurrentUser(response.body()?.jwtToken ?: "No token found", email)
+
+                        val intent = Intent(this@MainActivity, RemoteActivity::class.java)
+                        startActivity(intent)
+                    }
+
+                }
+
+                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                    println("Failure.")
+                    Log.d("RetrofitTest", t.toString())
+                }
+
+            })
+
+        }
+    }
+
+    fun saveCurrentUser(token:String, email:String){
+
+        RetrofitClient.currentToken = "Bearer $token"
+        RetrofitClient.currentUserEmail = email
+    }
+
+
 }

@@ -1,14 +1,16 @@
 package com.example.rcs_androidremote.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.rcs_androidremote.R
 import com.example.rcs_androidremote.api.ApiService
 import com.example.rcs_androidremote.api.RetrofitClient
-import com.example.rcs_androidremote.models.RegisterResponse
+import com.example.rcs_androidremote.models.GenericResponse
 import com.example.rcs_androidremote.models.User
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -21,11 +23,19 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        val emailField = findViewById<EditText>(R.id.et_register_email)
-        val passwordField = findViewById<EditText>(R.id.et_register_password)
-        val passwordAgainField = findViewById<EditText>(R.id.et_register_pass_again)
+        val emailField = findViewById<EditText>(R.id.et_email_register)
+        val passwordField = findViewById<EditText>(R.id.et_password_register)
+        val passwordAgainField = findViewById<EditText>(R.id.et_password_again_register)
+        val registerButton = findViewById<Button>(R.id.button_register)
+        val loginButton = findViewById<TextView>(R.id.login_page_btn)
 
-        val registerButton = findViewById<Button>(R.id.btn_submit_register)
+        loginButton.setOnClickListener {
+            RetrofitClient.logout()
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
+        }
 
         registerButton.setOnClickListener{
 
@@ -51,29 +61,7 @@ class RegisterActivity : AppCompatActivity() {
             val retroInstance = RetrofitClient.getRetroInstance().create(ApiService::class.java)
             val call = retroInstance.createUser(User(emailValue, passwordValue))
 
-            // launching a new coroutine
-            GlobalScope.launch {
-                //calling API
-                call.enqueue(object : Callback<RegisterResponse> {
-                    override fun onResponse(
-                        call: Call<RegisterResponse>,
-                        response: Response<RegisterResponse>
-                    ) {
-                        println(
-                            "Succeeded ${response.body()} "
-                        )
-                        if (response.isSuccessful)
-                            println(response.body().toString())
-                    }
-
-                    override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                        println("Authentication failed")
-                        Log.d("RetrofitTest", t.toString())
-                    }
-
-                })
-
-            }
+            RetrofitClient.makeCall(call)
 
         }}
 
