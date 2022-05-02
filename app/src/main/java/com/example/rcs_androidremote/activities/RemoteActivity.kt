@@ -18,10 +18,7 @@ class RemoteActivity : AppCompatActivity() {
 
 
 
-
-
-
-        updateStatus()
+        updateStatus()  //update status and show in UI
 
         val monkey = findViewById<Button>(R.id.button_monkey)
         val terminal = findViewById<Button>(R.id.button_terminal)
@@ -82,7 +79,7 @@ class RemoteActivity : AppCompatActivity() {
         GlobalScope.launch {
 
                 RetrofitClient.getStatus()
-                while(true) {
+                while(isActive) {
 
                     withContext(Dispatchers.Main) {
                         diskSpaceTotal.text = RetrofitClient.currentStatus.diskSpaceTotal.toString()
