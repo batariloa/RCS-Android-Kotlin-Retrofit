@@ -11,8 +11,8 @@ class PreferenceHelper @Inject constructor(
     fun getToken(): String {
         return "Bearer " + sharedPreferences.getString("key_jwt", "Unknown")
     }
-    fun getEmail(): String? {
-        return  sharedPreferences.getString("key_username", "Unknown")
+    fun getEmail(): String {
+        return  sharedPreferences.getString("key_username", "Unknown")?:"Unknown"
     }
     fun saveUser(token:String, username:String) {
         val editor:SharedPreferences.Editor =  sharedPreferences.edit()

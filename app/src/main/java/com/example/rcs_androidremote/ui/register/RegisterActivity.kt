@@ -7,9 +7,6 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.rcs_androidremote.R
-import com.example.rcs_androidremote.api.ApiService
-import com.example.rcs_androidremote.api.RetrofitClient
-import com.example.rcs_androidremote.models.User
 import com.example.rcs_androidremote.ui.login.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 

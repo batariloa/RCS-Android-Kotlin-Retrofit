@@ -3,7 +3,6 @@ package com.example.rcs_androidremote.di
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.rcs_androidremote.api.*
-import com.example.rcs_androidremote.models.User
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -95,6 +94,7 @@ object SingletonModule  {
     fun provideApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
+
 
 
     @Provides

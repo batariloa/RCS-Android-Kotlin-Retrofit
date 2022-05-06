@@ -14,31 +14,33 @@ class CommandRepository  @Inject constructor(
 
     fun callShutDown() {
         val call: Call<GenericResponse> = apiService.sendShutdownSignal(
-            preferenceHelper.getToken() ?: "",
-            preferenceHelper.getEmail() ?: "")
+            preferenceHelper.getToken(),
+            preferenceHelper.getEmail())
         makeCommandCall(call)
     }
 
     fun callMonkey() {
 
         val call: Call<GenericResponse> = apiService.addMonkey(
-            preferenceHelper.getToken() ?: "",
-            preferenceHelper.getEmail() ?: "")
+            preferenceHelper.getToken(),
+            preferenceHelper.getEmail())
         makeCommandCall(call)
     }
 
     fun callTorrent(link:String) {
 
         val call: Call<GenericResponse> = apiService.sendCommand(
-            preferenceHelper.getToken() ?: "",
-            preferenceHelper.getEmail() ?: "",link)
+            preferenceHelper.getToken(),
+            preferenceHelper.getEmail(),
+            link)
         makeCommandCall(call)
     }
 
     fun callTerminal(command:String) {
         val call: Call<GenericResponse> = apiService.sendCommand(
-            preferenceHelper.getToken() ?: "",
-            preferenceHelper.getEmail() ?: "",command)
+            preferenceHelper.getToken(),
+            preferenceHelper.getEmail(),
+            command)
         makeCommandCall(call)
     }
 

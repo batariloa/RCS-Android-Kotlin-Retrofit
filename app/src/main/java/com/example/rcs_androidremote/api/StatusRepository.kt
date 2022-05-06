@@ -17,7 +17,7 @@ class StatusRepository
     fun callGetStatus(status: MutableLiveData<MemoryStatus>){
         val email = preferenceHelper.getEmail()
         val jwt = preferenceHelper.getToken()
-        if (email != null && jwt != null) {
+
             val call: Call<MemoryStatus> = apiService.getStatus(jwt, email)
 
             call.enqueue(object : Callback<MemoryStatus> {
@@ -49,7 +49,7 @@ class StatusRepository
 
     }
 
-}
+
 
 
 

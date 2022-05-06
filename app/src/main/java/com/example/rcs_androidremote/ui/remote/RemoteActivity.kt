@@ -1,19 +1,17 @@
 package com.example.rcs_androidremote.ui.remote
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.rcs_androidremote.R
-import com.example.rcs_androidremote.api.ApiService
-import com.example.rcs_androidremote.api.RetrofitClient
-import com.example.rcs_androidremote.ui.login.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RemoteActivity : AppCompatActivity() {
