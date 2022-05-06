@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutDescription="@xml/activity_remote_scene"
-    tools:context=".activities.RemoteActivity">
+    tools:context=".ui.remote.RemoteActivity">
 
     <Button
         android:id="@+id/button_shut_down"

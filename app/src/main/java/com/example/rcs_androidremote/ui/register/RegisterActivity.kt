@@ -1,4 +1,4 @@
-package com.example.rcs_androidremote.activities
+package com.example.rcs_androidremote.ui.register
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,10 @@ import com.example.rcs_androidremote.R
 import com.example.rcs_androidremote.api.ApiService
 import com.example.rcs_androidremote.api.RetrofitClient
 import com.example.rcs_androidremote.models.User
+import com.example.rcs_androidremote.ui.login.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +26,7 @@ class RegisterActivity : AppCompatActivity() {
         val loginButton = findViewById<TextView>(R.id.login_page_btn)
 
         loginButton.setOnClickListener {
-            RetrofitClient.logout()
+            //ovde treba logout
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
@@ -50,11 +53,6 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            println("Email je $emailValue a pass je $passwordValue")
-            val retroInstance = RetrofitClient.getRetroInstance().create(ApiService::class.java)
-            val call = retroInstance.createUser(User(emailValue, passwordValue))
-
-            RetrofitClient.makeCall(call)
 
         }}
 
