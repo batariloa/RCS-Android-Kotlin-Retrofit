@@ -96,11 +96,6 @@ object SingletonModule  {
         return retrofit.create(ApiService::class.java)
     }
 
-    @Provides
-    @Singleton
-    fun provideRetrofitClient(apiService: ApiService): RetrofitClient {
-        return RetrofitClient(apiService)
-    }
 
     @Provides
     @Singleton
