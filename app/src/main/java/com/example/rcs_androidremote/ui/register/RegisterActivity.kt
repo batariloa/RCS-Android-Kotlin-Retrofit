@@ -23,7 +23,7 @@ class RegisterActivity : AppCompatActivity() {
         val loginButton = findViewById<TextView>(R.id.login_page_btn)
 
         loginButton.setOnClickListener {
-            //ovde treba logout
+            //TODO ovde treba logout
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)

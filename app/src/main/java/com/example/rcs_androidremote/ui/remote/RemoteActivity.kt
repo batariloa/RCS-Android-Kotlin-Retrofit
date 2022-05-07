@@ -25,6 +25,8 @@ class RemoteActivity : AppCompatActivity() {
         setContentView(R.layout.activity_remote)
 
 
+        val etCommand = findViewById<TextView>(R.id.et_terminal)
+        val etLink = findViewById<TextView>(R.id.et_torrent)
 
 
         val monkey = findViewById<Button>(R.id.button_monkey)
@@ -38,10 +40,29 @@ class RemoteActivity : AppCompatActivity() {
             println("PRITISKAM MONKEy")
         }
 
+        terminal.setOnClickListener {
+            viewModel.callTerminal(etCommand.text.toString())
+        }
+
+        torrent.setOnClickListener {
+            viewModel.callTorrent(etLink.text.toString())
+        }
+
+        shutdown.setOnClickListener {
+            viewModel.callShutdown()
+        }
+
+        logout.setOnClickListener {
+            viewModel.logout()
+        }
+
         val diskSpaceTotal = findViewById<TextView>(R.id.disk_all)
-        viewModel.currentStatus.observe(this, Observer {
-            diskSpaceTotal.text = it.diskSpaceTotal.toString()
-        })
+        viewModel.currentStatus.observe(
+            this,
+            Observer {
+                diskSpaceTotal.text = it.diskSpaceTotal.toString()
+            }
+        )
 
 
             GlobalScope.launch {
@@ -53,11 +74,7 @@ class RemoteActivity : AppCompatActivity() {
 
 
 
-    }   private fun updateStatus(){
-
-
-
-        }
+    }
 
 
 

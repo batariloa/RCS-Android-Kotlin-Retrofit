@@ -1,7 +1,5 @@
 package com.example.rcs_androidremote.ui.remote
 
-import android.content.Intent
-import androidx.activity.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,7 +7,6 @@ import com.example.rcs_androidremote.api.CommandRepository
 import com.example.rcs_androidremote.api.StatusRepository
 import com.example.rcs_androidremote.api.UserRepository
 import com.example.rcs_androidremote.models.MemoryStatus
-import com.example.rcs_androidremote.ui.login.LoginViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -25,24 +22,24 @@ class RemoteViewModel @Inject constructor(
     val currentStatus:LiveData<MemoryStatus>
         get() = _currentStatus
 
-    private fun logout(){
+    fun logout(){
         userRepository.logout()
 
     }
 
 
-    private fun callShutdown(){
+     fun callShutdown(){
        commandRepository.callShutDown()
     }
 
-    internal fun callMonkey(){
+     fun callMonkey(){
         commandRepository.callMonkey()
     }
 
-    private fun callTorrent(link:String){
+    fun callTorrent(link:String){
         commandRepository.callTorrent(link)
     }
-    private fun callTerminal(command:String){
+    fun callTerminal(command:String){
         commandRepository.callTerminal(command)
     }
 
